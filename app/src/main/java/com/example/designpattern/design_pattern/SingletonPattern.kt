@@ -10,12 +10,27 @@ class SingletonPattern private constructor() {
                 instance ?: SingletonPattern().also { instance = it }
             }
         }
+
+        fun getInstanceInfo() = instance?.let {
+            it.hashCode()
+        }
     }
 }
 
+class NotSingletonPattern {
 
+    private var instance: NotSingletonPattern? = null
+    fun getInstance(): NotSingletonPattern {
+        return instance ?: NotSingletonPattern().also { instance = it }
+    }
 
+    fun getInstanceInfo() = NotSingletonPattern().instance?.let {
+        it.hashCode()
+    }
+}
 
 fun main() {
-
+    val mySingleton = SingletonPattern.getInstance()
+    println(mySingleton.hashCode())
+    println(SingletonPattern.getInstanceInfo())
 }
